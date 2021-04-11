@@ -9,7 +9,6 @@ abstract class Repository
     public function get()
     {
         $builder = $this->model->select('*');
-        //dd($builder);
         return $builder->get();
     }
 
