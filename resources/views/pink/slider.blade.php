@@ -14,7 +14,7 @@
                     <div class="slide-content-holder-content" style="position: absolute; top:80px;left:500px;">
                 @endif
 
-                <p class="slide-title">
+                <div class="slide-title">
                     {!! $slider->title!!}
                 </div>
                 <div class="slide-content" style="color:#fff">
