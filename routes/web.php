@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\PortfolioController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,4 +23,5 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 */
 Route::resource('/',IndexController::class)->only('index')->names(['index'=>'home']);
+Route::resource('portfolios',PortfolioController::class)->parameters(['portfolios'=>'alias']);
 require __DIR__.'/auth.php';
