@@ -41,6 +41,10 @@ class IndexController extends SiteController
         $articles = $this->getArticles();
         $this->content_rightBar = view(env('theme').'.indexBar')->with(['articles'=>$articles])->render();
 
+        $this->meta_desc = 'Home Page';
+        $this->keywords = 'Home Page';
+        $this->title = 'Home Page';
+
         return $this->renderOutput();
     }
     protected function getPortfolio ()
