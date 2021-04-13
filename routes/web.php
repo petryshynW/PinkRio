@@ -24,6 +24,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 */
 Route::resource('/',IndexController::class)->only('index')->names(['index'=>'home']);
-Route::resource('article',ArticlesController::class)->parameters(['article'=>'alias']);
+Route::resource('articles',ArticlesController::class)->parameters(['articles'=>'alias']);
 Route::resource('portfolios',PortfolioController::class)->parameters(['portfolios'=>'alias']);
 require __DIR__.'/auth.php';
