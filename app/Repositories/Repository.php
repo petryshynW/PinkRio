@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use Illuminate\Support\Facades\Config;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 abstract class Repository
 {

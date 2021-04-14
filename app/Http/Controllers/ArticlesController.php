@@ -28,7 +28,7 @@ class ArticlesController extends SiteController
     }
     public function getArticles($alias = false)
     {
-        $articles = $this->a_rep->get(['title','alias','created_at','img','description','user_id','category_id'],false,true);
+        $articles = $this->a_rep->get(['title','alias','created_at','img','description','user_id','category_id','id'],false,true);
         if ($articles)
         {
             //$articles->load('user','category','comments');
