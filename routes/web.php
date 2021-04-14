@@ -26,4 +26,5 @@ Route::get('/dashboard', function () {
 Route::resource('/',IndexController::class)->only('index')->names(['index'=>'home']);
 Route::resource('articles',ArticlesController::class)->parameters(['articles'=>'alias']);
 Route::resource('portfolios',PortfolioController::class)->parameters(['portfolios'=>'alias']);
+Route::get('articles/cat/{cat_alias?}',[ArticlesController::class,'index'])->name('articlesCat');
 require __DIR__.'/auth.php';

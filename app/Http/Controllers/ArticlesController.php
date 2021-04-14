@@ -22,12 +22,13 @@ class ArticlesController extends SiteController
     public function index()
     {
         $articles = $this->getArticles();
-
+        $content = view(env('theme').'.articles_content')->with(['articles'=>$articles])->render();
+        $this->vars['content'] = $content;
         return $this->renderOutput();
     }
     public function getArticles($alias = false)
     {
-        $articles = $this->a_rep->get(['title','alias','created_at','img','description'],false,true);
+        $articles = $this->a_rep->get(['title','alias','created_at','img','description','user_id','category_id'],false,true);
         if ($articles)
         {
             //$articles->load('user','category','comments');
