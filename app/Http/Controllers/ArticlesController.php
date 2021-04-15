@@ -8,15 +8,17 @@ use Illuminate\Http\Request;
 use App\Repositories\ArticlesRepository;
 use App\Repositories\PortfoliosRepository;
 use Illuminate\Support\Facades\Config;
+use App\Repositories\CommentsRepository;
 
 class ArticlesController extends SiteController
 {
-    public function __construct(PortfoliosRepository $p_rep, ArticlesRepository $a_rep)
+    public function __construct(PortfoliosRepository $p_rep, ArticlesRepository $a_rep, CommentsRepository $c_rep)
     {
         parent::__construct(new MenusRepository(new Menu()));
         $this->p_rep = $p_rep;
         $this->a_rep = $a_rep;
         $this->bar = 'right';
+        $this->c_rep = $c_rep;
 
         $this->template = env('theme').'.articles';
     }
@@ -32,11 +34,13 @@ class ArticlesController extends SiteController
     }
     public function getComments ($take)
     {
-
+        $comments = $this->c_rep->get(['text','name','email','site','article_id','user_id'],$take);
+        return $comments;
     }
     public function getPortfolios ($take)
     {
-
+        $portfolios = $this->p_rep->get(['title','text','alias','customer','img','filter_alias'],$take);
+        return $portfolios;
     }
     public function getArticles($alias = false)
     {

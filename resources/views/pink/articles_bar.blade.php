@@ -1,32 +1,22 @@
 
 
     <div class="widget-first widget recent-posts">
-        <h3>Recent Posts</h3>
+        <h3>{{\Illuminate\Support\Facades\Lang::get('ua.latest_projects')}}</h3>
         <div class="recent-post group">
-            <div class="hentry-post group">
-                <div class="thumb-img"><img src="images/articles/001-55x55.png" alt="001" title="001" /></div>
-                <div class="text">
-                    <a href="article.html" title="Section shortcodes &amp; sticky posts!" class="title">Section shortcodes &amp; sticky posts!</a>
-                    <p>Fusce nec accumsan eros. Aenean ac orci a magna vestibulum </p>
-                    <a class="read-more" href="article.html">&rarr; Read More</a>
-                </div>
-            </div>
-            <div class="hentry-post group">
-                <div class="thumb-img"><img src="images/articles/003-55x55.jpg" alt="003" title="003" /></div>
-                <div class="text">
-                    <a href="article.html" title="Nice &amp; Clean. The best for your blog!" class="title">Nice &amp; Clean. The best for your blog!</a>
-                    <p>Fusce nec accumsan eros. Aenean ac orci a magna vestibulum </p>
-                    <a class="read-more" href="article.html">&rarr; Read More</a>
-                </div>
-            </div>
-            <div class="hentry-post group">
-                <div class="thumb-img"><img src="images/articles/0037-55x55.jpg" alt="0037" title="0037" /></div>
-                <div class="text">
-                    <a href="article.html" title="Another theme by YIThemes!" class="title">Another theme by YIThemes!</a>
-                    <p>Quisque pharetra, risus sit amet vestibulum consequat, elit arcu ultrices </p>
-                    <a class="read-more" href="article.html">&rarr; Read More</a>
-                </div>
-            </div>
+            @if(!$portfolios->isEmpty())
+                @foreach($portfolios as $portfolio)
+                    <div class="hentry-post group">
+                        <div class="thumb-img"><img src="{{asset(env('theme'))}}/images/articles/{{$portfolio->img->mini}}" alt="{{$portfolio->title}}" title="{{$portfolio->title}}" /></div>
+                        <div class="text">
+                            <a href="{{route('portfolios.show',['alias'=>$portfolio->alias])}}" title="{{$portfolio->title}}" class="title">{{$portfolio->title}}</a>
+                            {!! Illuminate\Support\Str::limit($portfolio->text,130)!!}
+                            <a class="read-more" href="{{route('portfolios.show',['alias'=>$portfolio->alias])}}">{{\Illuminate\Support\Facades\Lang::get('ua.read_more')}}</a>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
+
+
         </div>
     </div>
 
