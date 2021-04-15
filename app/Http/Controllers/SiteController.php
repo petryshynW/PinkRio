@@ -14,7 +14,7 @@ class SiteController extends Controller
     protected $m_rep;
     protected $template;
     protected $vars = array();
-    protected $bar = 'no';
+    protected $bar = 'none';
     protected $content_rightBar = false;
     protected $content_leftBar = false;
     protected $keywords;

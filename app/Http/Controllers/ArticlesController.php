@@ -7,6 +7,7 @@ use App\Repositories\MenusRepository;
 use Illuminate\Http\Request;
 use App\Repositories\ArticlesRepository;
 use App\Repositories\PortfoliosRepository;
+use Illuminate\Support\Facades\Config;
 
 class ArticlesController extends SiteController
 {
@@ -24,7 +25,18 @@ class ArticlesController extends SiteController
         $articles = $this->getArticles();
         $content = view(env('theme').'.articles_content')->with(['articles'=>$articles])->render();
         $this->vars['content'] = $content;
+        $comments = $this->getComments(\config('settings.recent_comments'));
+        $portfolios=$this->getPortfolios(\config('settings.recent_portfolios'));
+        $this->content_rightBar = view(env('theme').'.articles_bar')->with(['comments'=>$comments, 'portfolios' =>$portfolios]);
         return $this->renderOutput();
+    }
+    public function getComments ($take)
+    {
+
+    }
+    public function getPortfolios ($take)
+    {
+
     }
     public function getArticles($alias = false)
     {
