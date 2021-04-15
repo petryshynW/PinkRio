@@ -22,7 +22,7 @@ class ArticlesController extends SiteController
 
         $this->template = env('theme').'.articles';
     }
-    public function index()
+    public function index($cat)
     {
         $articles = $this->getArticles();
         $content = view(env('theme').'.articles_content')->with(['articles'=>$articles])->render();
@@ -35,6 +35,10 @@ class ArticlesController extends SiteController
     public function getComments ($take)
     {
         $comments = $this->c_rep->get(['text','name','email','site','article_id','user_id'],$take);
+        if ($comments)
+        {
+            $comments->load('article','user');
+        }
         return $comments;
     }
     public function getPortfolios ($take)
@@ -47,7 +51,7 @@ class ArticlesController extends SiteController
         $articles = $this->a_rep->get(['title','alias','created_at','img','description','user_id','category_id','id'],false,true);
         if ($articles)
         {
-            //$articles->load('user','category','comments');
+            $articles->load('user','category','comments');
         }
         return $articles;
     }
