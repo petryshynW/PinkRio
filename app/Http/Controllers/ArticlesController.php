@@ -66,7 +66,6 @@ class ArticlesController extends SiteController
     public function show($alias = false)
     {
         $article = $this->a_rep->one($alias,['comments'=>true]);
-        dd($article);
         $content = view(env('theme').'.article_content')->with(['article'=>$article])->render();
         $this->vars['content'] = $content;
         $comments = $this->getComments(\config('settings.recent_comments'));
