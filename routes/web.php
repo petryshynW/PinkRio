@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,4 +28,5 @@ Route::resource('/',IndexController::class)->only('index')->names(['index'=>'hom
 Route::resource('articles',ArticlesController::class)->parameters(['articles'=>'alias']);
 Route::resource('portfolios',PortfolioController::class)->parameters(['portfolios'=>'alias']);
 Route::get('articles/cat/{cat_alias?}',[ArticlesController::class,'index'])->name('articlesCat');
+Route::resource('comment',CommentController::class)->only('store');
 require __DIR__.'/auth.php';
