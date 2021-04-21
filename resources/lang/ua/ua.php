@@ -6,4 +6,5 @@ return array(
     'read_more' => ' Детальніше',
     'articles_no' => 'Записів немає',
     'latest_comments' => 'Останні коментарі',
+    'replay'=>'Відповісти',
 );

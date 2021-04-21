@@ -45,7 +45,7 @@
         <h3 id="comments-title">
             <span>{{count($article->comments)}}</span> {{\Illuminate\Support\Facades\Lang::choice('ua.comments',count($article->comments))}}
         </h3>
-        @set($com, $article->comments->groupBy('parent_id))
+        @set($com, $article->comments->groupBy('parent_id'))
         <ol class="commentlist group">
             @foreach($com as $k => $comments)
                 @if($k !== 0)
@@ -54,33 +54,7 @@
                 @include(env('theme').'.comment',['items'=>$comments])
             @endforeach
 
-            <li class="comment bypostauthor odd">
-                <div class="comment-container">
-                    <div class="comment-author vcard">
-                        <img alt="" src="images/avatar/nicola.jpeg" class="avatar" height="75" width="75" />
-                        <cite class="fn">nicola</cite>
-                    </div>
-                    <!-- .comment-author .vcard -->
-                    <div class="comment-meta commentmetadata">
-                        <div class="intro">
-                            <div class="commentDate">
-                                <a href="#">
-                                    September 24, 2012 at 1:32 pm</a>
-                            </div>
-                            <div class="commentNumber">#&nbsp;2</div>
-                        </div>
-                        <div class="comment-body">
-                            <p>While i’m the author of the post. My comment template is different, something like a “sticky comment”!</p>
-                        </div>
-                        <div class="reply group">
-                            <a class="comment-reply-link" href="#respond" onclick="return addComment.moveForm(&quot;comment-3&quot;, &quot;3&quot;, &quot;respond&quot;, &quot;41&quot;)">Reply</a>
-                        </div>
-                        <!-- .reply -->
-                    </div>
-                    <!-- .comment-meta .commentmetadata -->
-                </div>
-                <!-- #comment-##  -->
-            </li>
+
         </ol>
 
         <!-- START TRACKBACK & PINGBACK -->
