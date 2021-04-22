@@ -70,15 +70,15 @@
             <form action="{{route('comment.store')}}" method="post" id="commentform">
                 @csrf
                 @if(!\Illuminate\Support\Facades\Auth::check())
-                    <p class="comment-form-author"><label for="author">Name</label> <input id="author" name="author" type="text" value="" size="30" aria-required="true" /></p>
+                    <p class="comment-form-author"><label for="author">Name</label> <input id="name" name="name" type="text" value="" size="30" aria-required="true" /></p>
                     <p class="comment-form-email"><label for="email">Email</label> <input id="email" name="email" type="text" value="" size="30" aria-required="true" /></p>
-                    <p class="comment-form-url"><label for="url">Website</label><input id="url" name="url" type="text" value="" size="30" /></p>
+                    <p class="comment-form-url"><label for="url">Website</label><input id="url" name="site" type="text" value="" size="30" /></p>
                 @endif
-                <p class="comment-form-comment"><label for="comment">Your comment</label><textarea id="comment" name="comment" cols="45" rows="8"></textarea></p>
+                <p class="comment-form-comment"><label for="comment">Your comment</label><textarea id="comment" name="text" cols="45" rows="8"></textarea></p>
                 <div class="clear"></div>
                 <p class="form-submit">
                     <input type="hidden" id="comment_post_id" name="comment_post_id" value="{{$article->id}}" >
-                    <input type="hidden" id="comment_parent" name="comment_parent" >
+                    <input type="hidden" id="comment_parent" name="comment_parent" value="0">
                     <input name="submit" type="submit" id="submit" value="Post Comment" />
                 </p>
             </form>

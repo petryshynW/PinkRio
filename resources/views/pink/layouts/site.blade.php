@@ -81,6 +81,8 @@
     <script type="text/javascript" src="{{asset(env('THEME'))}}/js/jquery.tweetable.js"></script>
 
     <script type="text/javascript" src="{{asset(env('THEME'))}}/js/myScripts.js"></script>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <!-- END HEAD -->
 

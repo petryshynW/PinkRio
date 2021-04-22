@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     use HasFactory;
+    protected $fillable=['name','text','site','user_id','article_id','parent_id','email'];
     public function article ()
     {
         return $this->belongsTo('App\Models\Article');

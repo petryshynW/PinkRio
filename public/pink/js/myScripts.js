@@ -5,12 +5,14 @@ jQuery(document).ready(function ($){
    $('#commentform').on('click','#submit',function(e){
        e.preventDefault();
        var comParent = $(this);
-       $('.wrap_result').css('color','green').text('Збереження коментара')
-           .fadeIn(500,function(){
+       $('.wrap_result').css('color','green').text('Збереження коментара').fadeIn(500,function(){
                var data = $('#commentform').serializeArray();
                $.ajax({
                    url:$('#commentform').attr('action'),
                    data:data,
+                   headers: {
+                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                   },
                    type:'POST',
                    dataType:'JSON',
                    succes:function (){
