@@ -5,8 +5,9 @@ jQuery(document).ready(function ($){
    $('#commentform').on('click','#submit',function(e){
        e.preventDefault();
        var comParent = $(this);
-       $('.wrap_result').css('color','green').text('Збереження коментара').fadeIn(500,function(){
+       $('.wrap_result').css('color','green').text('Збереження коментара').fadeIn(5,function(){
                var data = $('#commentform').serializeArray();
+
                $.ajax({
                    url:$('#commentform').attr('action'),
                    data:data,
@@ -15,8 +16,20 @@ jQuery(document).ready(function ($){
                    },
                    type:'POST',
                    dataType:'JSON',
-                   succes:function (){
+                   success:function (html){
+                        if(html.error)
+                        {
+                        }
+                        else if (html.success)
+                        {
+                            $('.wrap_result').append('<br/><strong>Збережено</strong></strong>').delay(2).fadeOut(5,function (){
+                                alert(html.data.parent_id);
+                                if(html.data.parent_id > 0){
+                                        alert('ok');
+                                        comParent.parents('div#respond').prev().after('<ul class="children">'+html.comment + '</ul>');
 
+                                    }                                })
+                        }
                    },
                    error:function (){
 

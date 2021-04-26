@@ -17,7 +17,7 @@
                 <div class="commentNumber">#&nbsp;1</div>
             </div>
             <div class="comment-body">
-                <p>{{$item->text}}</p>
+                {{$item->text}}
             </div>
             <div class="reply group">
                 <a class="comment-reply-link" href="#respond" onclick="return addComment.moveForm(&quot;comment-{{$item->id}}&quot;, &quot;{{$item->id}}&quot;, &quot;respond&quot;, &quot;{{$item->article_id}}&quot;)">{{\Illuminate\Support\Facades\Lang::get('ua.replay')}}</a>
