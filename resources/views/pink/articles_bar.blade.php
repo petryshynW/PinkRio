@@ -17,7 +17,7 @@
 
     </div>
 </div>
-@if(!$comments->isEmpty())
+@if($comments)
     <div class="widget-last widget recent-comments">
         <h3>{{\Illuminate\Support\Facades\Lang::get('ua.latest_comments')}}</h3>
         <div class="recent-post recent-comments group">

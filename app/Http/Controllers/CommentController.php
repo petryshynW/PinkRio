@@ -67,7 +67,8 @@ class CommentController extends SiteController
         $data['name'] =  (!empty($data['name']) ? $data['name'] : $comment->user->name);
         $data['hash'] = md5($data['email']);
         $view_comment =view(env('theme').'.content_one_comment')->with(['data'=>$data])->render();
-        return Response::json(['success'=>true, 'comment'=>$view_comment]);
+
+         return Response::json(['success'=>true, 'comment'=>$view_comment]);
 
     }
 

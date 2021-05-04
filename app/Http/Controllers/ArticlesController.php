@@ -56,7 +56,7 @@ class ArticlesController extends SiteController
             $id = Category::select('id')->where('alias',$alias)->first()->id;
             $where = ['category_id',$id];
         }
-        $articles = $this->a_rep->get(['title','alias','created_at','img','description','user_id','category_id','id'],false,true,$where);
+        $articles = $this->a_rep->get(['title','alias','created_at','img','description','user_id','category_id','id','keywords','meta_desc'],false,true,$where);
         if ($articles)
         {
             $articles->load('user','category','comments');
@@ -65,8 +65,12 @@ class ArticlesController extends SiteController
     }
     public function show($alias = false)
     {
+
         $article = $this->a_rep->one($alias,['comments'=>true]);
-        //dd($article);
+        $this->title = $article->title;
+        $this->meta_desc = $article->meta_desc;
+        $this->keywords = $article->keywords;
+
         $content = view(env('theme').'.article_content')->with(['article'=>$article])->render();
         $this->vars['content'] = $content;
         $comments = $this->getComments(\config('settings.recent_comments'));

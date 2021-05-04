@@ -5,7 +5,7 @@ jQuery(document).ready(function ($){
    $('#commentform').on('click','#submit',function(e){
        e.preventDefault();
        var comParent = $(this);
-       $('.wrap_result').css('color','green').text('Збереження коментара').fadeIn(5,function(){
+       $('.wrap_result').css('color','green').text('Збереження коментара').fadeIn(50,function(){
                var data = $('#commentform').serializeArray();
 
                $.ajax({
@@ -19,20 +19,42 @@ jQuery(document).ready(function ($){
                    success:function (html){
                         if(html.error)
                         {
+                            $('.wrap_result').css('color','red').append('<br><strong>Помилка:</strong>'+html.error.join('<br/>'));
+                            $('.wrap_result').delay(2000).fadeOut(500);
                         }
                         else if (html.success)
                         {
-                            $('.wrap_result').append('<br/><strong>Збережено</strong></strong>').delay(2).fadeOut(5,function (){
-                                alert(html.data.parent_id);
-                                if(html.data.parent_id > 0){
-                                        alert('ok');
-                                        comParent.parents('div#respond').prev().after('<ul class="children">'+html.comment + '</ul>');
+                            $('.wrap_result')
+                                .append('<br>Збереженно')
+                                .delay(2000)
+                                .fadeOut(500,function (){
+                                    var dd =  $('#comment_parent').val();
+                                    if($('input#comment_parent').val() > 0){
+                                        comParent.parents('div#respond').prev().after('<ul class="children">' + html.comment +'</ul>');
+                                    }
+                                    else
+                                    {
+                                        if ($.contains('ol.commentlist'))
+                                        {
+                                            $('ol.commentlist').append(html.comment);
+                                            alert('ok');
+                                        }
+                                        else
+                                        {
+                                            $('#respond').before('<ol class="commentlist group">'+html.comment+'</ol>>');
+                                            alert('ok1');
+                                        }
+                                    }
+                                    $('#cancel-comment-reply-link').click();
+                                });
 
-                                    }                                })
                         }
                    },
                    error:function (){
-
+                       $('.wrap_result').css('color','red').append('<br><strong>Помилка:</strong>');
+                        $('.wrap_result').delay(2000).fadeOut(500,function (){
+                            $('#cancel-comment-reply-link').click();
+                        });
                    }
                });
            });
