@@ -34,15 +34,13 @@ jQuery(document).ready(function ($){
                                     }
                                     else
                                     {
-                                        if ($.contains('ol.commentlist'))
+                                        if ($('ol').is('.commentlist'))
                                         {
                                             $('ol.commentlist').append(html.comment);
-                                            alert('ok');
                                         }
                                         else
                                         {
-                                            $('#respond').before('<ol class="commentlist group">'+html.comment+'</ol>>');
-                                            alert('ok1');
+                                            $('#respond').before('<ol class="commentlist group">'+html.comment+'</ol>');
                                         }
                                     }
                                     $('#cancel-comment-reply-link').click();
