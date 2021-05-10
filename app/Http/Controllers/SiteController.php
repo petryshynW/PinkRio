@@ -36,6 +36,11 @@ class SiteController extends Controller
             $rightBar = view(env('theme').'.rightBar')->with(['content_rightBar'=>$this->content_rightBar])->render();
             $this->vars['rightBar'] = $rightBar;
         }
+        if ($this->content_leftBar)
+        {
+            $leftBar = view(env('theme').'.leftBar')->with(['content_leftBar'=>$this->content_leftBar])->render();
+            $this->vars['leftBar'] = $leftBar;
+        }
         $this->vars['bar'] = $this->bar;
 
         $footer = view(env('theme').'.footer')->render();

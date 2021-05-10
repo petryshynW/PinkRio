@@ -5,6 +5,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,4 +30,6 @@ Route::resource('articles',ArticlesController::class)->parameters(['articles'=>'
 Route::resource('portfolios',PortfolioController::class)->parameters(['portfolios'=>'alias']);
 Route::get('articles/cat/{cat_alias?}',[ArticlesController::class,'index'])->name('articlesCat');
 Route::resource('comment',CommentController::class)->only('store');
+Route::match(['get','post'],'/contacts',[ContactsController::class,'index'])->name('contacts');
+
 require __DIR__.'/auth.php';
