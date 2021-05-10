@@ -1,8 +1,8 @@
 /**
  * Your Inspiration Themes
- * 
+ *
  * In this files the framework register default metaboxes.
- * 
+ *
  * @package WordPress
  * @subpackage Your Inspiration Themes
  * @author Your Inspiration Themes Team <info@yourinspirationthemes.com>
@@ -20,3 +20,6 @@ It will always override rules in style.css.
 Good work... and good luck! :)
 
 ********************************************/
+div.sidebar-no{
+    width: 100%;
+}

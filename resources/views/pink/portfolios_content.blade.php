@@ -1,5 +1,5 @@
 <!-- START CONTENT -->
-<div id="content-page" class="content group">
+<div id="content-page" class="content sidebar-no group">
     <div class="hentry group">
         @if($portfolios)
 

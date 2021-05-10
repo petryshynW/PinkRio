@@ -87,7 +87,7 @@
 <!-- END HEAD -->
 
 <!-- START BODY -->
-<body class="no_js responsive {{\Illuminate\Support\Facades\Route::currentRouteName() =='home'?'page-template-home-php':'' }} stretched">
+<body class="no_js responsive {{(\Illuminate\Support\Facades\Route::currentRouteName() =='home')||(\Illuminate\Support\Facades\Route::currentRouteName()=='portfolios.index')||(\Illuminate\Support\Facades\Route::currentRouteName()=='portfolios.show')?'page-template-home-php':'' }} stretched">
 
 <!-- START BG SHADOW -->
 <div class="bg-shadow">
@@ -131,6 +131,16 @@
         <div class="wrap_result">
 
         </div>
+        @if(\Illuminate\Support\Facades\Route::currentRouteName() =='portfolios.index' )
+        <!-- START PAGE META -->
+        <div id="page-meta">
+            <div class="inner group">
+                <h3>Welcome to my portfolio page</h3>
+                <h4>... i hope you enjoy my works</h4>
+            </div>
+        </div>
+        <!-- END PAGE META -->
+        @endif
 
         <!-- START PRIMARY -->
         <div id="primary" class="sidebar-{{isset($bar) ? $bar : 'no'}}">

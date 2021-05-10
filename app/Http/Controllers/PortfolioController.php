@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
-use App\Repositories\ArticlesRepository;
 use App\Repositories\MenusRepository;
 use App\Repositories\PortfoliosRepository;
 use Illuminate\Http\Request;
@@ -30,13 +29,27 @@ class PortfolioController extends SiteController
 
         return $this->renderOutput();
     }
-    public function getPortfolios ()
+    public function getPortfolios ($take = false,$paginate = true)
     {
-        $portfolios = $this->p_rep->get('*',false,true);
+        $portfolios = $this->p_rep->get('*',$take,$paginate);
         if ($portfolios)
         {
             $portfolios->load('filter');
         }
         return $portfolios;
+    }
+    public function show($alias)
+    {
+        $portfolio = $this->p_rep->one($alias);
+
+        $this->title = $portfolio->title;
+        $this->meta_desc = $portfolio->meta_desc;
+        $this->keywords = $portfolio->keywords;
+        $portfolios=$this->getPortfolios(\config('settings.other_portfolios'),false);
+
+        $content = view(env('theme').'.portfolio_content')->with(['portfolio'=>$portfolio,'portfolios'=>$portfolios])->render();
+        $this->vars['content'] = $content;
+
+        return $this->renderOutput();
     }
 }

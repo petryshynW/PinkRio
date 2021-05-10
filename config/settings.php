@@ -6,4 +6,5 @@ return array(
     'paginate' => 3,
     'recent_comments' => 3,
     'recent_portfolios' => 3,
+    'other_portfolios' => 8,
 );
