@@ -25,7 +25,7 @@
     <!-- this line will appear only if the website is visited with an iPad -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.2, user-scalable=yes" />
 
-    <title>{{$big_title}}</title>
+    <title>{{isset($big_title)?$big_title:''}}</title>
 
     <meta name="description" content="{{isset($meta_desc)?$meta_desc:''}}">
     <meta name="keywords" content="{{isset($keywords)?$keywords:''}}}}">
