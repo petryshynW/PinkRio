@@ -16,7 +16,7 @@
 <![endif]-->
 <!--[if !IE]>
 <html dir="ltr" lang="en-US">
-<![endif]-->
+<![endif]--
 
 <!-- START HEAD -->
 <head>

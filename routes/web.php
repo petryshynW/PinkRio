@@ -28,4 +28,10 @@ Route::get('login',[\App\Http\Controllers\Auth\AuthenticatedSessionController::c
 Route::post('login',[\App\Http\Controllers\Auth\AuthenticatedSessionController::class,'store']);
 Route::get('logout',[\App\Http\Controllers\Auth\AuthenticatedSessionController::class,'destroy']);
 
+Route::group(['prefix'=>'admin','middleware'=>'auth'],function (){
+    //admin
+   Route::get('/',[\App\Http\Controllers\Admin\IndexController::class,'index']);
+  //Route::resource('/articles',\App\Http\Controllers\Admin\ArticlesController::class);
+});
+
 require __DIR__.'/auth.php';
