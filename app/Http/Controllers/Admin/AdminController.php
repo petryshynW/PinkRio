@@ -20,11 +20,7 @@ class AdminController extends Controller
 
     public function __construct()
     {
-        $this->user = Auth::user();
-        if (!$this->user)
-        {
-            abort(403);
-        }
+       // dd(Auth::user());
     }
     public function renderOutput ()
     {
@@ -46,12 +42,12 @@ class AdminController extends Controller
     {
         return \Menu::make('adminMenu',function ($menu)
         {
-            $menu->add('Статті',array('route'=>'admin.articles.index'));
+            $menu->add('Статті','admin/articles');
 
-            $menu->add('Портфоліо',array('route'=>'admin.articles.index'));
+           /* $menu->add('Портфоліо',array('route'=>'admin.articles.index'));
             $menu->add('Меню',array('route'=>'admin.articles.index'));
             $menu->add('Користувачі',array('route'=>'admin.articles.index'));
-            $menu->add('Права користувачів',array('route'=>'admin.articles.index'));
+            $menu->add('Права користувачів',array('route'=>'admin.articles.index'));*/
         });
     }
 }

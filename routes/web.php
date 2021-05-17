@@ -24,14 +24,12 @@ Route::get('articles/cat/{cat_alias?}',[ArticlesController::class,'index'])->nam
 Route::resource('comment',CommentController::class)->only('store');
 Route::match(['get','post'],'/contacts',[ContactsController::class,'index'])->name('contacts');
 
-Route::get('login',[\App\Http\Controllers\Auth\AuthenticatedSessionController::class,'create']);
-Route::post('login',[\App\Http\Controllers\Auth\AuthenticatedSessionController::class,'store']);
-Route::get('logout',[\App\Http\Controllers\Auth\AuthenticatedSessionController::class,'destroy']);
+Route::get('/login',[\App\Http\Controllers\Auth\AuthenticatedSessionController::class,'create']);
+Route::post('/login',[\App\Http\Controllers\Auth\AuthenticatedSessionController::class,'store']);
+Route::get('/logout',[\App\Http\Controllers\Auth\AuthenticatedSessionController::class,'destroy']);
 
-Route::group(['prefix'=>'admin','middleware'=>'auth'],function (){
-    //admin
-   Route::get('/',[\App\Http\Controllers\Admin\IndexController::class,'index']);
-  //Route::resource('/articles',\App\Http\Controllers\Admin\ArticlesController::class);
+Route::middleware(['auth'])->group(function (){
+    Route::get('/admin',[\App\Http\Controllers\Admin\IndexController::class,'index']);
 });
 
 require __DIR__.'/auth.php';
