@@ -16,7 +16,11 @@ class IndexController extends AdminController
     }
     public function index()
     {
-        dd(Auth::user());
+        if (!Auth::user())
+        {
+            abort(403);
+
+        }
         $this->title = 'Панель адміністратора';
 
         return $this->renderOutput();
