@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -47,6 +48,28 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany('App\Models\Role','role_user');
+    }
+    public function canDo($permission,$require = false)
+    {
+        dd('fgfg');
+        if (is_array($permission))
+        {
+            dump($permission);
+        }
+        else
+        {
+            dd($this);
+            foreach ($this->roles()->get() as $role)
+            {
+                foreach ($role->permission()->get() as $perm)
+                {
+                    if (Str::is($perm, $perm->name))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
     }
 
 }
