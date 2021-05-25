@@ -51,19 +51,17 @@ class User extends Authenticatable
     }
     public function canDo($permission,$require = false)
     {
-        dd('fgfg');
         if (is_array($permission))
         {
             dump($permission);
         }
         else
         {
-            dd($this);
             foreach ($this->roles()->get() as $role)
             {
                 foreach ($role->permission()->get() as $perm)
                 {
-                    if (Str::is($perm, $perm->name))
+                    if (Str::is($permission, $perm->name))
                     {
                         return true;
                     }

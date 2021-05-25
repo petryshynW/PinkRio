@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class IndexController extends AdminController
 {
@@ -13,15 +13,17 @@ class IndexController extends AdminController
     {
         parent::__construct();
         $this->template = env('theme') . '.admin.index';
-        if (\Illuminate\Support\Facades\Gate::denies('VIEW_ADMIN'))
-        {
-            echo "ok";
 
-        }
+
         return $this->template = env('theme') . '.admin.index';
     }
     public function index()
     {
+        if (Gate::allows('VIEW_ADMIN'))
+        {
+            echo "ok";
+
+        }
         if (!Auth::user())
         {
             abort(403);
