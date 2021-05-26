@@ -53,10 +53,23 @@ class User extends Authenticatable
     {
         if (is_array($permission))
         {
-            dump($permission);
+            foreach ($permission as $permName)
+            {
+                $permName = $this->canDo($permName);
+                if ($permName && !$require)
+                {
+                    return true;
+                }
+                else if (!$permName && $require)
+                {
+                    return false;
+                }
+            }
+            return $require;
         }
         else
         {
+
             foreach ($this->roles()->get() as $role)
             {
                 foreach ($role->permission()->get() as $perm)

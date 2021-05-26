@@ -1,3 +1,9 @@
+@extends(env('theme').'.layouts.site')
+
+@section('navigation')
+    { !!$navigation!!}
+@endsection
+@section('content')
 <!-- START CONTENT -->
 <div id="content-index" class="content group">
     <img class="error-404-image group" src="images/features/404.png" title="Error 404" alt="404" />
@@ -12,3 +18,7 @@
     </div>
 </div>
 <!-- END CONTENT -->
+@endsection
+@section('footer')
+    @include(env('theme').'.footer')
+@endsection

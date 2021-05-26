@@ -2,6 +2,9 @@
 
 namespace App\Exceptions;
 
+use App\Http\Controllers\SiteController;
+use App\Models\Menu;
+use App\Repositories\MenusRepository;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -36,6 +39,18 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+        $this->renderable(function (\Exception $e,$request){
+            $statusCode = $e;
+            //dd($statusCode);
+            switch ($statusCode)
+            {
+                case '404':
+                    $obj = new SiteController(new MenusRepository(new Menu()));
+                    $navigation =  view(env('theme').'.navigation')->with('menu',$obj->getMenu())->render();
+                    //dd($navigation);
+                    return response()->view(env('theme').'404',['bar'=>'no','title'=>'Сторінку не знайдено','navigation'=>$navigation]);
+            }
         });
     }
 }
