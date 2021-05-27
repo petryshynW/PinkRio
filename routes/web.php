@@ -29,7 +29,12 @@ Route::post('/login',[\App\Http\Controllers\Auth\AuthenticatedSessionController:
 Route::get('/logout',[\App\Http\Controllers\Auth\AuthenticatedSessionController::class,'destroy']);
 
 Route::middleware(['auth'])->group(function (){
-    Route::get('/admin',[\App\Http\Controllers\Admin\IndexController::class,'index']);
+    Route::group(['prefix'=>'admin'],function ()
+    {
+        Route::get('/',[\App\Http\Controllers\Admin\IndexController::class,'index']);
+        Route::get('/articles',[\App\Http\Controllers\Admin\ArticlesController::class,'index']);
+    });
+
 });
 
 require __DIR__.'/auth.php';
