@@ -16,27 +16,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($articles as $article)
-                        <td class="align-left">{{$article->id}}</td>
-                        <td class="align-left">rote</td>
-                        <td class="align-left">{{\Illuminate\Support\Str::limit($article->text,200)}}</td>
-                        @if(isset($article->img->mini))
-                            <img src="{{env('theme').'/images/articles/'.$article->img->mini}}">
-                        @endif
-                        <td>{{$article->category->title}}</td>
-                        <td>{{$article->alias}}</td>
-                        <td>
-                            <form method="post" class="form-horizontal">
-                                @csrf
-                                <input type="submit" value="Видалити">
-                            </form>
-                        </td>
-
-                    @endforeach
-
+                        @foreach($articles as $article)
+                            <tr>
+                                <td class="align-left">{{$article->id}}</td>
+                                <td class="align-left">rote</td>
+                                <td class="align-left">{{\Illuminate\Support\Str::limit($article->text,200)}}</td>
+                                <td>
+                                    @if(isset($article->img->mini))
+                                        <img src="{{env('theme').'/images/articles/'.$article->img->mini}}">
+                                    @endif
+                                </td>
+                                <td>{{$article->category->title}}</td>
+                                <td>{{$article->alias}}</td>
+                                <td>
+                                    <form method="post" class="form-horizontal">
+                                        @csrf
+                                        <input type="submit" value="Видалити">
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
+            <a href="" class="btn btn-amor-3">Додати запис</a>
         </div>
     </div>
 @endif
