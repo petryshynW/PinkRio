@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Article;
+use App\Models\Category;
 use App\Repositories\ArticlesRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -45,7 +47,13 @@ class ArticlesController extends AdminController
      */
     public function create()
     {
-        //
+        if (Gate::denies('save',new \App\Models\Article))
+        {
+            abort(403);
+        }
+        $this->title = "Додати новий матеріал";
+        $categories = Category::select(['title','alias','parent_id','id']);
+        dd($categories);
     }
 
     /**

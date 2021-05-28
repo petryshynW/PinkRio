@@ -31,8 +31,13 @@ Route::get('/logout',[\App\Http\Controllers\Auth\AuthenticatedSessionController:
 Route::middleware(['auth'])->group(function (){
     Route::group(['prefix'=>'admin'],function ()
     {
-        Route::get('/',[\App\Http\Controllers\Admin\IndexController::class,'index']);
-        Route::get('/articles',[\App\Http\Controllers\Admin\ArticlesController::class,'index']);
+        Route::get('/',[\App\Http\Controllers\Admin\IndexController::class,'index'])->name('admin');
+        Route::group(['prefix'=>'articles'],function ()
+        {
+            Route::get('/',[\App\Http\Controllers\Admin\ArticlesController::class,'index']);
+            Route::get('/add',[\App\Http\Controllers\Admin\ArticlesController::class,'create']);
+        });
+
     });
 
 });

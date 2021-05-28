@@ -39,7 +39,7 @@
                     </tbody>
                 </table>
             </div>
-            <a href="" class="btn btn-amor-3">Додати запис</a>
+            <a href="articles/add" class="btn btn-amor-3">Додати запис</a>
         </div>
     </div>
 @endif
