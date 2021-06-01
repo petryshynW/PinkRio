@@ -52,8 +52,21 @@ class ArticlesController extends AdminController
             abort(403);
         }
         $this->title = "Додати новий матеріал";
-        $categories = Category::select(['title','alias','parent_id','id']);
-        dd($categories);
+        $categories = Category::select(['title','alias','parent_id','id'])->get();
+        $lists = array();
+        foreach ($categories as $category)
+        {
+            if($category->parent_id == 0)
+            {
+                $lists[$category->title] = array();
+            }
+            else
+            {
+                $lists[$categories->where('id',$category->parent_id)->first()->title][$category->id] = $category->title;
+            }
+        }
+        $this->content = view(env('theme').'.admin.articles_add_content')->with('categories',$lists)->render();
+        return $this->renderOutput();
     }
 
     /**
