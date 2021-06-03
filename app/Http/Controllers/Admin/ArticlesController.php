@@ -65,6 +65,7 @@ class ArticlesController extends AdminController
                 $lists[$categories->where('id',$category->parent_id)->first()->title][$category->id] = $category->title;
             }
         }
+       //dd($lists);
         $this->content = view(env('theme').'.admin.articles_add_content')->with('categories',$lists)->render();
         return $this->renderOutput();
     }
