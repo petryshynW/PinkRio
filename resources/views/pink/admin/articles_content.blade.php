@@ -29,7 +29,7 @@
                                 <td>{{$article->category->title}}</td>
                                 <td>{{$article->alias}}</td>
                                 <td>
-                                    <form method="post" class="form-horizontal">
+                                    <form method="post" class="form-horizontal" action="{{route('destroy',['article'=>$article->alias])}}">
                                         @csrf
                                         <input type="submit" value="Видалити">
                                     </form>

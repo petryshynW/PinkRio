@@ -1,6 +1,6 @@
 <div id="content-page" class="content group">
     <div class="hentry group">
-        <form method="post" action="{{isset($article->id) ? route('update',['articles'=>'alias']):route('admin.articles.store')}}" class="contact-form" enctype="multipart/form-data">
+        <form method="post" action="{{isset($article->id) ? route('update',['article'=>$article->alias]):route('store')}}" class="contact-form" enctype="multipart/form-data">
             @csrf
             <ul>
                 <li class="text-field">
