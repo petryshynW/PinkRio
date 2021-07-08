@@ -35,7 +35,15 @@ Route::middleware(['auth'])->group(function (){
         Route::group(['prefix'=>'articles'],function ()
         {
             Route::get('/',[\App\Http\Controllers\Admin\ArticlesController::class,'index']);
-            Route::get('/add',[\App\Http\Controllers\Admin\ArticlesController::class,'create']);
+            Route::get('/newArticle',[\App\Http\Controllers\Admin\ArticlesController::class,'create']);
+            Route::post('/add',[\App\Http\Controllers\Admin\ArticlesController::class,'store'])->name('store');
+            Route::put('/update',[\App\Http\Controllers\Admin\ArticlesController::class,'update'],function (\App\Models\Article $article){
+                return $article;
+            })->name('update');
+            Route::get('/{article:alias}/edit',[\App\Http\Controllers\Admin\ArticlesController::class,'edit'],function (\App\Models\Article $article){
+                return $article;
+            });
+
         });
 
     });

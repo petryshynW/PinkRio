@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Models\Category;
 use App\Repositories\ArticlesRepository;
@@ -65,7 +66,6 @@ class ArticlesController extends AdminController
                 $lists[$categories->where('id',$category->parent_id)->first()->title][$category->id] = $category->title;
             }
         }
-       //dd($lists);
         $this->content = view(env('theme').'.admin.articles_add_content')->with('categories',$lists)->render();
         return $this->renderOutput();
     }
@@ -76,9 +76,14 @@ class ArticlesController extends AdminController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
-        //
+        $result = $this->a_rep->addArticle($request);
+        if (is_array($result) && !empty(['error']))
+        {
+            return back()->with($result);
+        }
+        return redirect('/admin')->with($result);
     }
 
     /**
@@ -98,9 +103,30 @@ class ArticlesController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Article $article)
     {
-        //
+        if (Gate::denies('edit', new \App\Models\Article))
+        {
+            abort(403);
+        }
+        $article->img = json_decode($article->img);
+        $categories = Category::select(['title','alias','parent_id','id'])->get();
+        $lists = array();
+        foreach ($categories as $category)
+        {
+            if($category->parent_id == 0)
+            {
+                $lists[$category->title] = array();
+            }
+            else
+            {
+                $lists[$categories->where('id',$category->parent_id)->first()->title][$category->id] = $category->title;
+            }
+        }
+        $this->title = 'Редагування матеріалу - '.$article->title;
+        //dd(env('theme'));
+        $this->content = view(env('theme').'.admin.articles_add_content')->with(['article'=>$article,'categories'=>$lists])->render();
+        return $this->renderOutput();
     }
 
     /**
@@ -110,9 +136,14 @@ class ArticlesController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ArticleRequest $request, Article $article)
     {
-        //
+        $result = $this->a_rep->updateArticle($request,$article);
+        if (is_array($result) && !empty(['error']))
+        {
+            return back()->with($result);
+        }
+        return redirect('/admin')->with($result);
     }
 
     /**

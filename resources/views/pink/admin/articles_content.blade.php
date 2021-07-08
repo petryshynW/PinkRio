@@ -19,7 +19,7 @@
                         @foreach($articles as $article)
                             <tr>
                                 <td class="align-left">{{$article->id}}</td>
-                                <td class="align-left">rote</td>
+                                <td class="align-left"><a href="/admin/articles/{{$article->alias}}/edit">{{$article->alias}}</a></td>
                                 <td class="align-left">{{\Illuminate\Support\Str::limit($article->text,200)}}</td>
                                 <td>
                                     @if(isset($article->img->mini))
@@ -39,7 +39,7 @@
                     </tbody>
                 </table>
             </div>
-            <a href="articles/add" class="btn btn-amor-3">Додати запис</a>
+            <a href="/admin/articles/newArticle" class="btn btn-amor-3">Додати запис</a>
         </div>
     </div>
 @endif

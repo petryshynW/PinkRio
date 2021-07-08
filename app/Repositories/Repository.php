@@ -50,4 +50,46 @@ abstract class Repository
         $result = $this->model->where('alias',$alias)->first();
         return $result;
     }
+    public function transliterate ($string)
+    {
+        $str = mb_strtolower($string,'utf-8');
+        $leter_array = array(
+            'a'=>'а',
+            'b'=>'б',
+            'v'=>'в',
+            'h' =>'г',
+            'd'=>'д',
+            'e'=>'е,є',
+            'zh'=> 'ж',
+            'z'=>'з',
+            'y'=>'и',
+            'i'=>'і',
+            'j'=>'й',
+            'k'=>'к',
+            'l'=>'л',
+            'm'=>'м',
+            'n'=>'н',
+            'o'=>'о',
+            'p'=>'п',
+            'r'=>'р',
+            's'=>'с',
+            't'=>'т',
+            'u'=>'у',
+            'f'=>'ф',
+            'ch'=>'х',
+            'ce'=>'ц',
+            'sch'=>'щ',
+            ''=>'ь',
+            'ju'=>'ю',
+            'ja'=>'я'
+        );
+        foreach ($leter_array as $engLet=>$ukrLet)
+        {
+            $ukrLet = explode(',',$ukrLet);
+            $str = str_replace($ukrLet,$engLet,$str);
+        }
+        $str = preg_replace('/(\s|[^A-Za-z0-9\-])+/','-',$str);
+        $str = trim($str,'-');
+        return $str;
+    }
 }

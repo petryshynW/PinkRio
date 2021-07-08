@@ -1,6 +1,7 @@
 <div id="content-page" class="content group">
     <div class="hentry group">
-        <form method="post" action="{{isset($article->id)/*?route('admin.articles.update',['articles'=>'alias']):route('admin.articles.store')*/}}" class="contact-form" enctype="multipart/form-data">
+        <form method="post" action="{{isset($article->id) ? route('update',['articles'=>'alias']):route('admin.articles.store')}}" class="contact-form" enctype="multipart/form-data">
+            @csrf
             <ul>
                 <li class="text-field">
                     <label for="name-contact-us">
@@ -25,7 +26,7 @@
                         <span class="add-on">
                             <i class="icon-user"></i>
                         </span>
-                            <input type="text" name="meta_desc" value="{{isset($article->meta_desc)?$article->meta_desc:old('meta_desc')}}" placeholder="гавно">
+                            <input type="text" name="keywords" value="{{isset($article->meta_desc)?$article->meta_desc:old('meta_desc')}}" placeholder="гавно">
                     </div>
                 </li>
                 <li class="text-field">
@@ -43,10 +44,23 @@
                 </li>
                 <li class="text-field">
                     <label for="name-contact-us">
+                        <span class="label">Мета-опис:</span>
+                        <br/>
+                        <span class="sublabel">Введіть мета-опис:</span>
+                    </label>
+                    <div class="input-prepend">
+                        <span class="add-on">
+                            <i class="icon-user"></i>
+                        </span>
+                        <input type="text" name="meta_desc" value="{{isset($article->meta_desc)?$article->meta_desc:old('meta_desc')}}" placeholder="гавно">
+                    </div>
+                </li>
+                <li class="text-field">
+                    <label for="name-contact-us">
                         <span class="label">Короткий опис:</span>
                     </label>
                     <div class="input-prepend">
-                            <textarea id="editor1" name="desc" >{{isset($article->desc)?$article->desc:old('desc')}}</textarea>
+                            <textarea id="editor1" name="description" >{{isset($article->description)?$article->description:old('description')}}</textarea>
                         <div class="msg-error"></div>
                     </div>
                 </li>
@@ -75,7 +89,7 @@
                         <span class="sublabel">Зображення матеріалу:</span><br/>
                     </label>
                     <div class="input-prepend">
-                        <input type="file" class="lifestyle data-button">
+                        <input type="file"  name="image" class="lifestyle data-button">
                     </div>
                 </li>
                 <li class="text-field">
@@ -83,13 +97,13 @@
                         <span class="label">Категорія:</span>
                         <br/>
                         <span class="sublabel">Категорія матеріалу:</span><br/>
-                        <select>
+                        <select name="category_id">
                             @if(isset($categories) && count($categories)>0)
 
                                 @foreach($categories as $cat_title=>$cat_value)
                                     <optgroup label="{{$cat_title}}">
                                         @foreach($cat_value as $key=>$value)
-                                            <option {{(isset($articles->category_id) && $articles->category_id==$key)?'selected':''}}value="{{$key}}">{{$value}}</option>
+                                            <option  {{(isset($articles->category_id) && $articles->category_id==$key)?'selected':''}}value="{{$key}}">{{$value}}</option>
                                         @endforeach
                                     </optgroup>
                                 @endforeach
