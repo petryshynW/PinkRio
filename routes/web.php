@@ -46,6 +46,7 @@ Route::middleware(['auth'])->group(function (){
             Route::post('/{article:alias}/delete',[\App\Http\Controllers\Admin\ArticlesController::class,'destroy'],function (\App\Models\Article $article){
                 return $article;
             })->name('destroy');
+            Route::resource('/permission',\App\Http\Controllers\Admin\PermissionController::class);
 
         });
 
