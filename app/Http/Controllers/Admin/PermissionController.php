@@ -3,10 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\PermissionRepository;
+use App\Repositories\RolesRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PermissionController extends AdminController
 {
+    protected $perm_rep = false;
+    protected $rol_rep = false;
+    public function __construct(RolesRepository $rol_rep, PermissionRepository $perm_rep)
+    {
+        parent::__construct();
+        $this->perm_rep = $perm_rep;
+        $this->rol_rep = $rol_rep;
+        $this->template = env('theme').'.admin.permission';
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +27,15 @@ class PermissionController extends AdminController
      */
     public function index()
     {
-        dd('sss');
+        if (Gate::denies('EDIT_USERS'))
+        {
+            abort(403);
+        }
+        $this->title = "Редагування прав користувачыв";
+        $roles = $this->getRoles();
+        $permissions = $this->getPermissions();
+        $this->content = view(env('theme').".admin.permission_content")->with(array_fill_keys('permissions'=>$roles,'priv'=>$permissions));
+
     }
 
     /**
@@ -81,5 +102,15 @@ class PermissionController extends AdminController
     public function destroy($id)
     {
         dd('sss');//
+    }
+    public function getRoles ()
+    {
+        $roles = $this->rol_rep->get();
+        return $roles;
+    }
+    public function getPermissions()
+    {
+        $permissions = $this->perm_rep->get();
+        return $permissions;
     }
 }
