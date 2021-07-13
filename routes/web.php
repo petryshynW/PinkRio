@@ -49,7 +49,7 @@ Route::middleware(['auth'])->group(function (){
 
 
         });
-        Route::resource('/permission',\App\Http\Controllers\Admin\PermissionController::class);
+        Route::resource('/permission',\App\Http\Controllers\Admin\PermissionController::class)->names('admin.permission');
 
     });
 

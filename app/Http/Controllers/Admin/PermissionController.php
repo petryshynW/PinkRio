@@ -34,7 +34,8 @@ class PermissionController extends AdminController
         $this->title = "Редагування прав користувачыв";
         $roles = $this->getRoles();
         $permissions = $this->getPermissions();
-        $this->content = view(env('theme').".admin.permission_content")->with(array_fill_keys('permissions'=>$roles,'priv'=>$permissions));
+        $this->content = view(env('theme').".admin.permission_content")->with(array('roles'=>$roles,'priv'=>$permissions));
+        return $this->renderOutput();
 
     }
 
@@ -45,7 +46,6 @@ class PermissionController extends AdminController
      */
     public function create()
     {
-        dd('sss');//
     }
 
     /**
@@ -56,7 +56,12 @@ class PermissionController extends AdminController
      */
     public function store(Request $request)
     {
-        dd('sss');//
+        $result = $this->perm_rep->changePermissions($request);
+        if (is_array($result) && !empty($result['error']))
+        {
+            return back()->with($result);
+        }
+        return back()->with($result);
     }
 
     /**
@@ -66,9 +71,8 @@ class PermissionController extends AdminController
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        dd('sss');//
-    }
+    {//
+        }
 
     /**
      * Show the form for editing the specified resource.
@@ -77,8 +81,7 @@ class PermissionController extends AdminController
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        dd('sss');//
+    {//
     }
 
     /**
@@ -89,8 +92,7 @@ class PermissionController extends AdminController
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        dd('sss');//
+    {//
     }
 
     /**
@@ -101,8 +103,9 @@ class PermissionController extends AdminController
      */
     public function destroy($id)
     {
-        dd('sss');//
+        //
     }
+
     public function getRoles ()
     {
         $roles = $this->rol_rep->get();
