@@ -73,7 +73,9 @@ class MenusController extends AdminController
      */
     public function create()
     {
-        //
+        $this->title = "Новий пункт меню";
+        $tmp = $this->getMenus()->roots();
+        $menus = $tmp->reduce(function ($returnMenus));
     }
 
     /**
