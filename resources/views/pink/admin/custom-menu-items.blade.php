@@ -1,4 +1,3 @@
-<p>sdsdsdsd</p>
 @foreach($items as $item)
 
     <tr>
@@ -13,6 +12,4 @@
     @if($item->hasChildren())
         @include(env('theme').'.admin.custom-menu-items',array('items'=>$item->children(),'paddingLeft'=>$paddingLeft.'--'))
     @endif
-    $i++
-    print_r($i)
 @endforeach

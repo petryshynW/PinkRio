@@ -20,7 +20,7 @@ class AdminController extends Controller
 
     public function __construct()
     {
-       // dd(Auth::user());
+        //
     }
     public function renderOutput ()
     {
@@ -35,7 +35,7 @@ class AdminController extends Controller
         }
         $footer = view(env('theme').'.admin.footer')->render();
         $this->vars['footer'] = $footer;
-
+//dd(view($this->template)->with($this->vars));
         return view($this->template)->with($this->vars);
     }
     public function getMenu()
