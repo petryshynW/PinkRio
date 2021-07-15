@@ -50,6 +50,7 @@ Route::middleware(['auth'])->group(function (){
 
         });
         Route::resource('/permission',\App\Http\Controllers\Admin\PermissionController::class)->names('admin.permission');
+        Route::resource('/menus',\App\Http\Controllers\Admin\MenusController::class)->names('admin.menus');
 
     });
 
