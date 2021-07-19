@@ -1,7 +1,10 @@
 <div id="content-page" class="content group">
     <div class="hentry group">
-    <form action="{{isset($menu->id)? route('admin.menus.update',['menus'=>$menu->id]):route('admin.menus.store')}}" class="contact-form" method="POST" enctype="multipart/form-data">
+    <form action="{{isset($menu->id) ? "sss" : route('admin.menus.store')}}" class="contact-form" method="PUT" enctype="multipart/form-data">
         <ul>
+            @if(!isset($menu->id))
+            <p>ssssss</p>
+            @endif
 
             <li class="text-field">
                 <label for="name-contact-us">
@@ -165,3 +168,14 @@
 
     </div>
 </div>
+<script>
+    jQuery(function ($)
+    {
+        $('#accordion').accordion({
+            activate:function (e,obj)
+            {
+                obj.newPanel.prev().find('input[type=radio]').attr('checked','checked');
+            }
+        });
+    })
+</script>
