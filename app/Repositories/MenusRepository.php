@@ -17,7 +17,6 @@ class MenusRepository extends Repository
             abort(403);
         }
         $data = $request->only('type','title','parent');
-        dd($data);
     }
 
 }

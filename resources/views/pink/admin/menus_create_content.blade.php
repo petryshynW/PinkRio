@@ -1,10 +1,9 @@
 <div id="content-page" class="content group">
     <div class="hentry group">
-    <form action="{{isset($menu->id) ? "sss" : route('admin.menus.store')}}" class="contact-form" method="PUT" enctype="multipart/form-data">
+    <form action="{{isset($menu->id) ? route('admin.menus.update',['menus'=>$menu->id]) : route('admin.menus.store')}}" class="contact-form" method="post" enctype="multipart/form-data">
+        @csrf
         <ul>
-            @if(!isset($menu->id))
-            <p>ssssss</p>
-            @endif
+
 
             <li class="text-field">
                 <label for="name-contact-us">

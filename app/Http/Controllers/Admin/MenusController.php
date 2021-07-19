@@ -111,7 +111,6 @@ class MenusController extends AdminController
                 $returnPortfolios[$portfolio->alias] = $portfolio->title;
                 return $returnPortfolios;
             },[]);
-        //dd($list);
         $this->content = view(env('theme').'.admin.menus_create_content')->with(['menus'=> $menus,'categories'=>$list,'articles'=>$articles,'portfolios'=>$portfolios])->render();
 
         return $this->renderOutput();
@@ -124,7 +123,8 @@ class MenusController extends AdminController
      * @return \Illuminate\Http\Response
      */
     public function store(MenusRequest $request)
-    {dd('ddd');
+    {
+
         $result = $this->m_rep->addMenu($request);
         if (is_array($result) && !empty($result['error']))
         {
@@ -141,7 +141,7 @@ class MenusController extends AdminController
      */
     public function show($id)
     {
-        //
+        dd('dd');
     }
 
     /**
@@ -152,7 +152,7 @@ class MenusController extends AdminController
      */
     public function edit(/*$id*/)
     {
-        //
+        dd('dd');
     }
 
     /**
@@ -164,7 +164,7 @@ class MenusController extends AdminController
      */
     public function update(Request $request, $id)
     {
-        //
+        dd('dd');
     }
 
     /**
@@ -175,6 +175,6 @@ class MenusController extends AdminController
      */
     public function destroy($id)
     {
-        //
+        dd('dd');
     }
 }

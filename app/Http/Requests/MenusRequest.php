@@ -15,7 +15,8 @@ class MenusRequest extends FormRequest
      * @return bool
      */
     public function authorize()
-    {dd('hjhj';
+
+    {
         return Auth::user()->canDo('EDIT_MENU');
     }
 
