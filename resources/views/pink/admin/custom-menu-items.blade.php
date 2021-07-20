@@ -4,8 +4,10 @@
         <td style="text-align:left;"><a href="{{route('admin.menus.edit',['menu'=>$item->id],$item->title)}}" >{{$paddingLeft.$item->title}}</a> </td>
         <td><a href="{{$item->url()}}">{{$item->url()}}</a></td>
         <td>
-            <form action="{{route('admin.menus.destroy',['menu'=>$item->id])}}" class="form-horizontal" method="delete">
-                <input type="button" value="Видалити" class="btn btn-french-5">
+            <form action="{{route('admin.menus.destroy',['menu'=>$item->id])}}" class="form-horizontal" method="post">
+                @csrf
+                <input type="hidden" name="_method" value="delete">
+                <input type="submit" value="Видалити" class="btn btn-french-5">
             </form>
         </td>
     </tr>
