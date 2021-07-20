@@ -111,7 +111,7 @@ class MenusController extends AdminController
                 $returnPortfolios[$portfolio->alias] = $portfolio->title;
                 return $returnPortfolios;
             },[]);
-        $this->content = view(env('theme').'.admin.menus_create_content')->with(['menus'=> $menus,'categories'=>$list,'articles'=>$articles,'portfolios'=>$portfolios])->render();
+        $this->content = view(env('theme').'.admin.menus_create_content')->with(['menus'=> $menus,'categories'=>$list,'articles'=>$articles,'portfolios'=>$portfolios,'filters'=>$filters])->render();
 
         return $this->renderOutput();
     }
@@ -124,7 +124,6 @@ class MenusController extends AdminController
      */
     public function store(MenusRequest $request)
     {
-
         $result = $this->m_rep->addMenu($request);
         if (is_array($result) && !empty($result['error']))
         {
@@ -141,7 +140,7 @@ class MenusController extends AdminController
      */
     public function show($id)
     {
-        dd('dd');
+        //
     }
 
     /**
@@ -150,9 +149,77 @@ class MenusController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(/*$id*/)
+    public function edit(Menu $menu)
     {
-        dd('dd');
+        $this->title = "Редагування пункту меню - ".$menu->title;
+        $type =false;
+        $option = false;
+        $route = (app('router')->getRoutes()->match(app('request')->create($menu->path)));
+        $aliasRoute =$route->getName();
+        $parameters = $route->parameters();
+
+        if ($aliasRoute == 'articles.index' || $aliasRoute == 'articlesCat')
+        {
+            $type = 'blogLink';
+            $option = isset($parameters['cat_alias']) ? $parameters['cat_alias'] : 'parent';
+        }
+        elseif ($aliasRoute == 'articles.show')
+        {
+            $type = 'blogLink';
+            $option =isset($parameters['alias']) ? $parameters['alias'] : '';
+        }
+        elseif ($aliasRoute == 'portfolios.index')
+        {
+            $type = 'portfolioLink';
+            $option ='parent';
+        }
+        elseif ($aliasRoute == 'portfolios.show')
+        {
+            $type = 'portfolioLink';
+            $option =isset($parameters['alias']) ? $parameters['alias'] : '';
+        }
+        else
+        {
+            $type = 'customLink';
+        }
+        dump($aliasRoute,$parameters,$option);
+        $tmp = $this->getMenus()->roots();
+        $menus = $tmp->reduce(function ($returnMenus,$menu){
+            $returnMenus[$menu->id] = $menu->title;
+            return $returnMenus;
+        },['0'=>'Батькывський пункт меню']);
+        $categories = Category::select(['title','alias','parent_id','id'])->get();
+        $list = array();
+        $list[0] = 'Не використовуэться';
+        $list['parent'] = 'Роздыл блогу';
+        foreach ($categories as $cat)
+        {
+            if ($cat->parent_id == 0)
+            {
+                $list[$cat->title] = array();
+            }
+            else
+            {
+                $list[$categories->where('id',$cat->parent_id)->first()->title][$cat->alias] = $cat->title;
+            }
+        }
+        $articles = collect($this->a_rep->get(['id','title','alias']));
+        $articles = $articles->reduce(function($returnArticles, $article){
+            $returnArticles[$article->alias] = $article->title;
+            return $returnArticles;
+        },[]);
+        $filters = collect(Filter::select('id','alias','title')->get())->reduce(function ($returnFilters, $filter){
+            $returnFilters[$filter->alias] = $filter->title;
+            return $returnFilters;
+        },['parent'=>'Роздыл портфолыо']);
+        $portfolios = collect($this->p_rep->get(['id','alias','title']))->reduce(function ($returnPortfolios, $portfolio){
+            $returnPortfolios[$portfolio->alias] = $portfolio->title;
+            return $returnPortfolios;
+        },[]);
+        //dd($menu->id);
+       $this->content = view(env('theme').'.admin.menus_create_content')->with(['menu'=>$menu,'option'=>$option,'type'=>$type,'menus'=> $menus,'categories'=>$list,'articles'=>$articles,'portfolios'=>$portfolios,'filters'=>$filters])->render();
+
+        return $this->renderOutput();
     }
 
     /**
@@ -164,7 +231,7 @@ class MenusController extends AdminController
      */
     public function update(Request $request, $id)
     {
-        dd('dd');
+        //
     }
 
     /**
@@ -175,6 +242,6 @@ class MenusController extends AdminController
      */
     public function destroy($id)
     {
-        dd('dd');
+        //
     }
 }

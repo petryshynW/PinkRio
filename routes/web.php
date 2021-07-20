@@ -18,8 +18,8 @@ use App\Http\Controllers\ContactsController;
 */
 Route::resource('/',IndexController::class)->only('index')->names(['index'=>'home']);
 
-Route::resource('articles',ArticlesController::class)->parameters(['articles'=>'alias']);
-Route::resource('portfolios',PortfolioController::class)->parameters(['portfolios'=>'alias']);
+Route::resource('articles',ArticlesController::class)->parameters(['articles'=>'alias'])->names('articles');
+Route::resource('portfolios',PortfolioController::class)->parameters(['portfolios'=>'alias'])->names('portfolios');
 Route::get('articles/cat/{cat_alias?}',[ArticlesController::class,'index'])->name('articlesCat');
 Route::resource('comment',CommentController::class)->only('store');
 Route::match(['get','post'],'/contacts',[ContactsController::class,'index'])->name('contacts');

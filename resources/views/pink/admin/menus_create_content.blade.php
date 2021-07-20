@@ -1,6 +1,7 @@
 <div id="content-page" class="content group">
     <div class="hentry group">
-    <form action="{{isset($menu->id) ? route('admin.menus.update',['menus'=>$menu->id]) : route('admin.menus.store')}}" class="contact-form" method="post" enctype="multipart/form-data">
+
+    <form action="{{isset($menu->id) ? route('admin.menus.update',['menu'=>$menu->id]) : route('admin.menus.store')}}" class="contact-form" method="post" enctype="multipart/form-data">
         @csrf
         <ul>
 
@@ -80,12 +81,13 @@
                             <select name="category_alias">
                                 @foreach($categories as $key=>$cat)
                                     @if(is_array($cat))
-                                        <option style="font-weight: bold;">{{$key}}</option>
-                                        @foreach($cat as $item)
-                                            <option {{(isset($option) && $option) ? 'selected' :FALSE}}>&nbsp;&nbsp;&nbsp;{{$item}}</option>
+                                        <optgroup label="{{$key}}">
+                                        @foreach($cat as $itemKey=>$item)
+                                            <option {{(isset($option) && $option == $itemKey) ? 'selected' :FALSE}} value="{{$itemKey}}">{{$item}}</option>
                                         @endforeach
+                                        </optgroup>
                                     @else
-                                        <option {{(isset($option) && $option) ? 'selected' :FALSE}}>{{$cat}}</option>
+                                        <option {{(isset($option) && $option == $key) ? 'selected' :FALSE}} value="{{$key}}">{{$cat}}</option>
                                     @endif
 
                                 @endforeach
@@ -103,9 +105,11 @@
                     </label>
                     <div class="input-prepend">
                         {!! ''//Form::select('article_alias', $articles, (isset($option) && $option) ? $option :FALSE, ['placeholder' => 'Не используется']) !!}
-                        <select name="article_alias" placeholder="не використовуэться">
-                            @foreach($articles as $article)
-                                <option {{(isset($option) && $option) ? 'selected' :FALSE}}>{{$article}}</option>
+                        <select name="article_alias" >
+                            <option value="" disabled selected style='display:none;'>Не використовується</option>
+
+                        @foreach($articles as $key=>$article)
+                                <option {{(isset($option) && $option) ? 'selected' :FALSE}} value="{{$key}}">{{$article}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -130,12 +134,29 @@
                     </label>
                     <div class="input-prepend">
                         {!!''/// Form::select('portfolio_alias', $portfolios, (isset($option) && $option) ? $option :FALSE, ['placeholder' => 'Не используется']) !!}
-                        <select name="portfolio_alias" placeholder="не використовуэться">
-                            @foreach($portfolios as $portfolio)
-                                <option {{(isset($option) && $option) ? 'selected' :FALSE}}>{{$portfolio}}</option>
+                        <select name="portfolio_alias" >
+                            <option value="" disabled selected style='display:none;'>Не використовується</option>
+                            @foreach($portfolios as $key=>$portfolio)
+                                <option {{(isset($option) && $option == $key) ? 'selected' :FALSE}} value="{{$key}}">{{$portfolio}}</option>
                             @endforeach
                         </select>
 
+                    </div>
+
+                </li>
+                <li class="text-field">
+                    <label for="name-contact-us">
+                        <span class="label">Портфоліо:</span>
+                        <br>
+                        <span class="sublabel">Портфоліо</span>
+                    </label>
+                    <div class="input-prepend">
+                        <select name="filter_alias">
+                            <option value="" disabled selected style='display:none;'>Не використовується</option>
+                            @foreach($filters as $key=>$filter)
+                                <option {{(isset($option) && $option == $key) ? 'selected' :FALSE}} value="{{$key}}">{{$filter}}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                 </li>
@@ -176,5 +197,13 @@
                 obj.newPanel.prev().find('input[type=radio]').attr('checked','checked');
             }
         });
+        var active =0;
+        $('#accordion input[type=radio]').each(function (ind,it){
+            if ($(this).prop('checked'))
+            {
+                active = ind;
+            }
+        });
+        $('#accordion').accordion('option','active',active)
     })
 </script>
