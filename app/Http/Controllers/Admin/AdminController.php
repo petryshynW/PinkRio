@@ -25,7 +25,6 @@ class AdminController extends Controller
     public function renderOutput ()
     {
         $this->vars['title'] = $this->title;
-
         $menu = $this->getMenu();
         $navigation = view(env('theme').'.admin.navigation')->with(['menu'=>$menu])->render();
         $this->vars['navigation'] = $navigation;
@@ -35,7 +34,6 @@ class AdminController extends Controller
         }
         $footer = view(env('theme').'.admin.footer')->render();
         $this->vars['footer'] = $footer;
-//dd(view($this->template)->with($this->vars));
         return view($this->template)->with($this->vars);
     }
     public function getMenu()
@@ -44,12 +42,8 @@ class AdminController extends Controller
         {
             $menu->add('Статті','admin/articles');
             $menu->add('Привілегії','admin/permission');
-            $menu->add('Меню','admin/menus');
-
-           /* $menu->add('Портфоліо',array('route'=>'admin.articles.index'));
-            $menu->add('Меню',array('route'=>'admin.articles.index'));
-            $menu->add('Користувачі',array('route'=>'admin.articles.index'));
-            $menu->add('Права користувачів',array('route'=>'admin.articles.index'));*/
+            $menu->add('Меню','admin.menus');
+            $menu->add('Користувачі',route('admin.users.index'));
         });
     }
 }
