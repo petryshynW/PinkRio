@@ -21,6 +21,7 @@ class ArticlePolicy
     }
     public function save(User $user)
     {
+        dd($user);
         return $user->canDo('ADD_ARTICLES');
     }
     public function edit (User $user)

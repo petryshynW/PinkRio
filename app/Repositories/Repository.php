@@ -11,6 +11,7 @@ abstract class Repository
     public function get($select = '*',$take = false,$pagination = false,$where = false)
     {
         $builder = $this->model->select($select);
+        //dd($builder->get());
         if ($take)
         {
             $builder->take($take);

@@ -55,7 +55,6 @@ class SiteController extends Controller
     protected function getMenu()
     {
         $menu = $this->m_rep->get();
-
         $mBuilder = \Menu::make('MyNavBar', function ($m) use ($menu) {
             foreach ($menu as $item)
             {

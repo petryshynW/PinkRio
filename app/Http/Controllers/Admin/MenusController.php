@@ -7,6 +7,7 @@ use App\Http\Requests\MenusRequest;
 use App\Models\Category;
 use App\Models\Filter;
 use App\Models\Menu;
+use App\Models\User;
 use App\Repositories\ArticlesRepository;
 use App\Repositories\MenusRepository;
 use App\Repositories\PortfoliosRepository;
@@ -32,7 +33,7 @@ class MenusController extends AdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $dd)
     {
         if (Gate::denies('VIEW_ADMIN_MENU'))
         {
@@ -40,7 +41,6 @@ class MenusController extends AdminController
         }
         $menus = $this->getMenus();
         $this->content = view(env('theme').'.admin.menus_content')->with('menus',$menus)->render();
-       //dd($this->template);
         return $this->renderOutput();
     }
     public function getMenus ()
@@ -216,7 +216,6 @@ class MenusController extends AdminController
             $returnPortfolios[$portfolio->alias] = $portfolio->title;
             return $returnPortfolios;
         },[]);
-        //dd($menu->id);
        $this->content = view(env('theme').'.admin.menus_create_content')->with(['menu'=>$menu,'option'=>$option,'type'=>$type,'menus'=> $menus,'categories'=>$list,'articles'=>$articles,'portfolios'=>$portfolios,'filters'=>$filters])->render();
 
         return $this->renderOutput();

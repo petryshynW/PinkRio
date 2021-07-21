@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Repositories\RolesRepository;
 use App\Repositories\UsersRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class UsersController extends AdminController
@@ -31,6 +32,7 @@ class UsersController extends AdminController
             abort(403);
         }
         $users = $this->us_rep->get();
+        //dd($users[0]->id);
         $this->content = view(env('theme').'.admin.users_content')->with(['users'=>$users])->render();
         return $this->renderOutput();
     }
@@ -42,7 +44,14 @@ class UsersController extends AdminController
      */
     public function create()
     {
-        //
+        $this->title = 'Новий користувач';
+        $roles = $this->rol_rep->get();
+        $roles->reduce(function($returnRoles, $role){
+            $returnRoles[$role->id] = $role->name;
+            return $returnRoles;
+        },[]);
+        $this->content = view(env('theme').'.admin.users_create_content')->with(['roles'=>$roles])->render();
+        return $this->renderOutput();
     }
 
     /**

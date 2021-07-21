@@ -2,7 +2,7 @@
 namespace App\Repositories;
 use App\Models\User;
 
-class UsersRepository extends \App\Repositories\Repository
+class UsersRepository extends Repository
 {
     public function __construct (User $user)
     {

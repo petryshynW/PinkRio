@@ -19,14 +19,14 @@
                     @foreach($users as $user)
                         <tr>
                             <td>{{ $user->id }}</td>
-                            <td><a href="{{route('admin.users.edit',['users' => $user->id])}}">{{$user->name}}</a></td>
+                            <td><a href="{{route('admin.users.edit',['user' => $user->id])}}">{{$user->name}}</a></td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->login }}</td>
                             <td>{{ $user->roles->implode('name', ', ') }}</td>
 
 
                             <td>
-                                <form action="{{route('admin.users.destroy',['users'=> $user->id])}}" class="form-horizontal" method="post">
+                                <form action="{{route('admin.users.destroy',['user'=> $user->id])}}" class="form-horizontal" method="post">
                                     @csrf
                                     <input type="hidden" name="_method" value="delete">
                                     <input type="submit" value="Видалити" class="btn btn-french-5">

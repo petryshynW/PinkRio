@@ -42,7 +42,7 @@ class AdminController extends Controller
         {
             $menu->add('Статті','admin/articles');
             $menu->add('Привілегії','admin/permission');
-            $menu->add('Меню','admin.menus');
+            $menu->add('Меню',route('admin.menus.index'));
             $menu->add('Користувачі',route('admin.users.index'));
         });
     }
