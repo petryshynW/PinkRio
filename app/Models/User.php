@@ -65,7 +65,6 @@ class User extends Authenticatable
                     return false;
                 }
             }
-            //dd ($require);
             return $require;
         }
         else
@@ -77,7 +76,6 @@ class User extends Authenticatable
                 {
                     if (Str::is($permission, $perm->name))
                     {
-                        //dd($perm->name);
                         return true;
                     }
                 }

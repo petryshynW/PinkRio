@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Menu;
+use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -52,6 +53,10 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('menus',function ($value)
         {
             return Menu::where('id',$value)->first();
+        });
+        Route::bind('users',function ($value)
+        {
+            return User::find($value);
         });
     }
 

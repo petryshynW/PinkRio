@@ -33,7 +33,6 @@ class Role extends Model
                     return false;
                 }
             }
-            //dd ($require);
             return $require;
         }
         else

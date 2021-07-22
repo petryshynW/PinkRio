@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Repositories\RolesRepository;
 use App\Repositories\UsersRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use function PHPUnit\Framework\isEmpty;
 
 class UsersController extends AdminController
 {
@@ -60,9 +62,15 @@ class UsersController extends AdminController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        //dd($request);
+        $result = $this->us_rep->addUser($request);
+        if (is_array($result) && !empty($result['error']))
+        {
+            return back()->with($result);
+        }
+        return redirect(route('admin'))->with($result);
     }
 
     /**
@@ -82,8 +90,15 @@ class UsersController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
+        $this->title = 'Редагування користувача - '.$user->name;
+        $roles = $this->rol_rep->get()->reduce(function ($returnRoles , $role){
+            $returnRoles[$role->id] = $role->name;
+            return $returnRoles;
+        },[]);
+        $this->content = view(env('theme').'.admin.users_create_content')->with(['roles'=>$roles,'user'=>$user])->render();
+        return $this->renderOutput();
         //
     }
 
@@ -94,9 +109,14 @@ class UsersController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $user)
     {
-        //
+        $result = $this->us_rep->updateUser($request,$user);
+        if (is_array($result) && !empty($result['error']))
+        {
+            return back()->with($result);
+        }
+        return redirect('admin')->with($result);
     }
 
     /**
@@ -105,8 +125,13 @@ class UsersController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $result = $this->us_rep->deleteUser($user);
+        if (is_array($result) && !empty($result['error']))
+        {
+            return back()->with($result);
+        }
+        return redirect('admin')->with($result);
     }
 }

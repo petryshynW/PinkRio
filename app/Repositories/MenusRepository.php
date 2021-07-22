@@ -21,7 +21,6 @@ class MenusRepository extends Repository
         {
             return ['error'=>'Відсутні дані'];
         }
-        //dd($request->all());
         switch ($data['type'])
         {
             case 'customLink':

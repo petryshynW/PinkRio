@@ -1,7 +1,7 @@
 <div id="content-page" class="content group">
     <div class="hentry group">
 
-        <form action="{{isset($user->id)?route('admin.users.update',['users'=>$user->id]):route('admin.users.store')}}" class="contact-form" method="post" enctype="multipart/form-data">
+        <form action="{{isset($user->id)?route('admin.users.update',['user'=>$user->id]):route('admin.users.store')}}" class="contact-form" method="post" enctype="multipart/form-data">
             @csrf
 
         <ul>
@@ -68,10 +68,9 @@
                 </label>
                 <div class="input-prepend">
 
-                    {!! ''//Form::select('role_id', $roles, (isset($user)) ? $user->roles()->first()->id : null) !!}
                     <select name="role_id">
-                        @foreach($roles as $role)
-                            <option value="{{$role->id}}" {{(isset($user) && $user->roles()->first()->id == $role->id)? 'selected':false}}>{{$role->name}}</option>
+                        @foreach($roles as $id=>$role)
+                            <option value="{{$id}}" {{(isset($user) && $user->roles()->first()->id == $id)? 'selected':false}}>{{$role}}</option>
                         @endforeach
                     </select>
                 </div>

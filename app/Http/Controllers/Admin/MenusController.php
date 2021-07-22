@@ -182,7 +182,6 @@ class MenusController extends AdminController
         {
             $type = 'customLink';
         }
-        dump($aliasRoute,$parameters,$option);
         $tmp = $this->getMenus()->roots();
         $menus = $tmp->reduce(function ($returnMenus,$menu){
             $returnMenus[$menu->id] = $menu->title;

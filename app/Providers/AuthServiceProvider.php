@@ -8,6 +8,7 @@ use App\Models\Permission;
 use App\Policies\ArticlePolicy;
 use App\Policies\MenusPolicy;
 use App\Policies\PermissionPolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -24,6 +25,7 @@ class AuthServiceProvider extends ServiceProvider
         Article::class => ArticlePolicy::class,
         Permission::class =>PermissionPolicy::class,
         Menu::class => MenusPolicy::class,
+        User::class => UserPolicy::class,
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
     ];
 
