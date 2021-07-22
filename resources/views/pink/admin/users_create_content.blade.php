@@ -45,7 +45,6 @@
                     <span class="sublabel">Пароль</span><br />
                 </label>
                 <div class="input-prepend"><span class="add-on"><i class="icon-user"></i></span>
-                    {!! Form::password('password') !!}
                     <input type="password" name="password">
                 </div>
             </li>
@@ -69,10 +68,10 @@
                 </label>
                 <div class="input-prepend">
 
-                    {!! Form::select('role_id', $roles, (isset($user)) ? $user->roles()->first()->id : null) !!}
+                    {!! ''//Form::select('role_id', $roles, (isset($user)) ? $user->roles()->first()->id : null) !!}
                     <select name="role_id">
                         @foreach($roles as $role)
-                            <option value="{{$role->id}}">{{$role->name}}</option>
+                            <option value="{{$role->id}}" {{(isset($user) && $user->roles()->first()->id == $role->id)? 'selected':false}}>{{$role->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -89,7 +88,7 @@
             @endif
 
             <li class="submit-button">
-                <input type="submit" value="Зберегти" class="btn btn-the-salmon-dance-3">
+                <input type="submit" value="Зберегти" class="btn btn-the-salmon-dance-5">
             </li>
 
         </ul>
