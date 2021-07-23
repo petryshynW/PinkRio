@@ -34,7 +34,6 @@ class UsersController extends AdminController
             abort(403);
         }
         $users = $this->us_rep->get();
-        //dd($users[0]->id);
         $this->content = view(env('theme').'.admin.users_content')->with(['users'=>$users])->render();
         return $this->renderOutput();
     }
@@ -48,7 +47,7 @@ class UsersController extends AdminController
     {
         $this->title = 'Новий користувач';
         $roles = $this->rol_rep->get();
-        $roles->reduce(function($returnRoles, $role){
+        $roles = $roles->reduce(function($returnRoles, $role){
             $returnRoles[$role->id] = $role->name;
             return $returnRoles;
         },[]);
@@ -64,7 +63,6 @@ class UsersController extends AdminController
      */
     public function store(UserRequest $request)
     {
-        //dd($request);
         $result = $this->us_rep->addUser($request);
         if (is_array($result) && !empty($result['error']))
         {
@@ -93,13 +91,14 @@ class UsersController extends AdminController
     public function edit(User $user)
     {
         $this->title = 'Редагування користувача - '.$user->name;
-        $roles = $this->rol_rep->get()->reduce(function ($returnRoles , $role){
+        $roles = $this->rol_rep->get();
+        $roles = $roles->reduce(function ($returnRoles , $role){
+
             $returnRoles[$role->id] = $role->name;
             return $returnRoles;
         },[]);
         $this->content = view(env('theme').'.admin.users_create_content')->with(['roles'=>$roles,'user'=>$user])->render();
         return $this->renderOutput();
-        //
     }
 
     /**
@@ -125,7 +124,7 @@ class UsersController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($user)
     {
         $result = $this->us_rep->deleteUser($user);
         if (is_array($result) && !empty($result['error']))

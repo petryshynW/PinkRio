@@ -19,9 +19,9 @@
                     @foreach($users as $user)
                         <tr>
                             <td>{{ $user->id }}</td>
-                            <td><a href="{{route('admin.users.edit',['user' => $user->id])}}">{{$user->name}}</a></td>
+                            <td><a href="{{route('admin.users.edit',['user' => $user->id])}}">{{$user->view_name}}</a></td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->login }}</td>
+                            <td>{{ $user->name }}</td>
                             <td>{{ $user->roles->implode('name', ', ') }}</td>
 
 

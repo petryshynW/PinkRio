@@ -12,7 +12,7 @@
                     <span class="sublabel">Имя</span><br />
                 </label>
                 <div class="input-prepend"><span class="add-on"><i class="icon-user"></i></span>
-                    <input type="text" name="name" placeholder="Введіть імя користувача" value="{{isset($user->name)?$user->name:old('name')}}">
+                    <input type="text" name="view_name" placeholder="Введіть імя користувача" value="{{isset($user->name)?$user->view_name:old('view_name')}}">
                 </div>
             </li>
 
@@ -23,7 +23,7 @@
                     <span class="sublabel">Логин</span><br />
                 </label>
                 <div class="input-prepend"><span class="add-on"><i class="icon-user"></i></span>
-                    <input type="text" name="login" placeholder="Введіть логін користувача" value="{{isset($user->login)?$user->login:old('login')}}">
+                    <input type="text" name="name" placeholder="Введіть логін користувача" value="{{isset($user->name)?$user->name:old('name')}}">
                 </div>
             </li>
 
@@ -70,7 +70,7 @@
 
                     <select name="role_id">
                         @foreach($roles as $id=>$role)
-                            <option value="{{$id}}" {{(isset($user) && $user->roles()->first()->id == $id)? 'selected':false}}>{{$role}}</option>
+                            <option value="{{$id}}" {{(isset($user) && $user->roles()->first()->id == $id)? 'selected':''}}>{{$role}}</option>
                         @endforeach
                     </select>
                 </div>
